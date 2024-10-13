@@ -28,7 +28,7 @@ public class TimeSLList {
         AList<Integer> opCounts = new AList<>();
 
         /* 初始化Ns，存放测试的操作数 */
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 7; i++) {
             Ns.addLast(1000 * (1 << i));
         }
 
