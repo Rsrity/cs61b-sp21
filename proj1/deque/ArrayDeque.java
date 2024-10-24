@@ -42,7 +42,7 @@ public class ArrayDeque<Item> implements Iterable<Item> {
         if (size == items.length) {
             resize(size * 2);
         }
-        head = (head - 1 + items.length) / items.length;
+        head = (head - 1 + items.length) % items.length;
         items[head] = item;
         size++;
     }
