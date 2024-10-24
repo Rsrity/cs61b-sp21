@@ -5,27 +5,36 @@ import java.util.Iterator;
 public class ArrayDeque<Item> implements Iterable<Item> {
     private Item[] items;
     private int size;
+    private int head;
+    private int tail;
 
     public ArrayDeque() {
         items = (Item[]) new Object[8];
         size = 0;
+        head = 0;
+        tail = 0;
     }
 
     private class ArrayDequeIterator implements Iterator<Item> {
-        private int wizPos;
+        private int count;
+        private int currentIndex;
 
         public ArrayDequeIterator() {
-            wizPos = 0;
+            count = 0;
+            currentIndex = head;
         }
 
         @Override
         public boolean hasNext() {
-            return wizPos < size;
+            return count < size;
         }
 
         @Override
         public Item next() {
-            return items[wizPos++];
+            Item element = items[currentIndex];
+            currentIndex = (currentIndex + 1) % items.length;
+            count++;
+            return element;
         }
     }
 
@@ -33,18 +42,18 @@ public class ArrayDeque<Item> implements Iterable<Item> {
         if (size == items.length) {
             resize(size * 2);
         }
-        for(int i = size() - 1; i > 0; i--) {
-            items[i] = items[i - 1];
-        }
-        items[0] = item;
+        head = (head - 1 + items.length) / items.length;
+        items[head] = item;
         size++;
     }
 
-    public void addLast(Item x) {
+    public void addLast(Item item) {
         if (size == items.length) {
             resize(size * 2);
         }
-        items[size++] = x;
+        items[tail] = item;
+        tail = (tail + 1) % items.length;
+        size++;
     }
 
     public boolean isEmpty() {
@@ -62,15 +71,14 @@ public class ArrayDeque<Item> implements Iterable<Item> {
     }
 
     public Item removeFirst() {
-        if(isEmpty()){
+        if(isEmpty()) {
             return null;
         }
-        Item first = items[0];
-        for(int i = 0; i < size - 1; i++) {
-            items[i] = items[i + 1];
-        }
+        Item first = items[head];
+        items[head] = null;
+        head = (head + 1) % items.length;
         size--;
-        if(size > 16 && size < items.length / 4) {
+        if(size > 16 && size < items.length / 4){
             resize(items.length / 2);
         }
         return first;
@@ -80,8 +88,9 @@ public class ArrayDeque<Item> implements Iterable<Item> {
         if(isEmpty()){
             return null;
         }
-        Item last = items[size - 1];
-        items[size - 1] = null;
+        tail = (tail - 1 + items.length) % items.length;
+        Item last = items[tail];
+        items[tail] = null;
         size--;
         if(size > 16 && size < items.length / 4) {
             resize(items.length / 2);
@@ -90,8 +99,9 @@ public class ArrayDeque<Item> implements Iterable<Item> {
     }
 
     public void printDeque(){
-        for(int i = 0; i < size; i++) {
-            System.out.print(items[i] + " ");
+        for (int i = 0; i < size; i++) {
+            int actualIndex = (head + i) % items.length;
+            System.out.print(items[actualIndex] + " ");
         }
     }
 
@@ -99,7 +109,8 @@ public class ArrayDeque<Item> implements Iterable<Item> {
         if(isEmpty() || index >= size || index < 0) {
             return null;
         }
-        return items[index];
+        int actualIndex = (head + index) % items.length;
+        return items[actualIndex];
     }
 
     public Iterator<Item> iterator() {
