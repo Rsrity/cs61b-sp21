@@ -1,15 +1,14 @@
 package deque;
 
-import java.util.Deque;
 import java.util.Iterator;
 
-public class LinkedListDeque<Item> implements Iterable<Item> {
+public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
     private class Node {
-        public Item item;
+        public T item;
         public Node next;
         public Node prev;
 
-        public Node(Item item) {
+        public Node(T item) {
             this.item = item;
             this.next = null;
             this.prev = null;
@@ -26,7 +25,7 @@ public class LinkedListDeque<Item> implements Iterable<Item> {
         size = 0;
     }
 
-    private class LinkedListDequeIterator implements Iterator<Item> {
+    private class LinkedListDequeIterator implements Iterator<T> {
         public Node current;
 
         public LinkedListDequeIterator() {
@@ -38,14 +37,15 @@ public class LinkedListDeque<Item> implements Iterable<Item> {
         }
 
         @Override
-        public Item next() {
-            Item item = current.item;
+        public T next() {
+            T item = current.item;
             current = current.next;
             return item;
         }
     }
 
-    public void addFirst(Item item) {
+    @Override
+    public void addFirst(T item) {
         Node newh = new Node(item);
         newh.next = head.next;
         newh.prev = head;
@@ -58,7 +58,8 @@ public class LinkedListDeque<Item> implements Iterable<Item> {
         size++;
     }
 
-    public void addLast(Item item) {
+    @Override
+    public void addLast(T item) {
         Node newt = new Node(item);
         newt.next = null;
         newt.prev = tail;
@@ -67,14 +68,12 @@ public class LinkedListDeque<Item> implements Iterable<Item> {
         size++;
     }
 
+    @Override
     public int size(){
         return size;
     }
 
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
+    @Override
     public void printDeque() {
         Node p = head.next;
         while(p != null) {
@@ -83,7 +82,8 @@ public class LinkedListDeque<Item> implements Iterable<Item> {
         }
     }
 
-    public Item removeFirst() {
+    @Override
+    public T removeFirst() {
         if(isEmpty()) {
             return null;
         }
@@ -98,7 +98,8 @@ public class LinkedListDeque<Item> implements Iterable<Item> {
         return p.item;
     }
 
-    public Item removeLast() {
+    @Override
+    public T removeLast() {
         if(isEmpty()) {
             return null;
         }
@@ -109,7 +110,8 @@ public class LinkedListDeque<Item> implements Iterable<Item> {
         return p.item;
     }
 
-    public Item get(int index){
+    @Override
+    public T get(int index){
         if(isEmpty()) {
             return null;
         }
@@ -125,7 +127,7 @@ public class LinkedListDeque<Item> implements Iterable<Item> {
         return null;
     }
 
-    public Item getRecursive(int index){
+    public T getRecursive(int index){
         if(isEmpty() || index < 0 || index >= size()) {
             return null;
         }
@@ -140,7 +142,8 @@ public class LinkedListDeque<Item> implements Iterable<Item> {
         }
     }
 
-    public Iterator<Item> iterator(){
+    @Override
+    public Iterator<T> iterator(){
         return new LinkedListDequeIterator();
     }
 
@@ -152,7 +155,7 @@ public class LinkedListDeque<Item> implements Iterable<Item> {
         if(!(o instanceof LinkedListDeque)){
             return false;
         }
-        LinkedListDeque<Item> a = (LinkedListDeque<Item>) o;
+        LinkedListDeque<T> a = (LinkedListDeque<T>) o;
         if(size() != a.size()){
             return false;
         }
