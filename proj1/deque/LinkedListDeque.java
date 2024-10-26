@@ -4,11 +4,11 @@ import java.util.Iterator;
 
 public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
     private class Node {
-        public T item;
-        public Node next;
-        public Node prev;
+        private T item;
+        private Node next;
+        private Node prev;
 
-        public Node(T item) {
+        Node(T item) {
             this.item = item;
             this.next = null;
             this.prev = null;
@@ -49,7 +49,7 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         Node newh = new Node(item);
         newh.next = head.next;
         newh.prev = head;
-        if(isEmpty()){
+        if (isEmpty()) {
             tail = newh;
         } else {
             head.next.prev = newh;
@@ -69,14 +69,14 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
     }
 
     @Override
-    public int size(){
+    public int size() {
         return size;
     }
 
     @Override
     public void printDeque() {
         Node p = head.next;
-        while(p != null) {
+        while (p != null) {
             System.out.print(p.item + " ");
             p = p.next;
         }
@@ -84,14 +84,14 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
 
     @Override
     public T removeFirst() {
-        if(isEmpty()) {
+        if (isEmpty()) {
             return null;
         }
         Node p = head.next;
         head.next = p.next;
-        if(head.next != null) {
+        if (head.next != null) {
             p.next.prev = head;
-        }else {
+        } else {
             tail = head;
         }
         size--;
@@ -100,7 +100,7 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
 
     @Override
     public T removeLast() {
-        if(isEmpty()) {
+        if (isEmpty()) {
             return null;
         }
         Node p = tail;
@@ -111,14 +111,14 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
     }
 
     @Override
-    public T get(int index){
-        if(isEmpty()) {
+    public T get(int index) {
+        if (isEmpty()) {
             return null;
         }
         int i = 0;
         Node p = head.next;
-        while(p != null) {
-            if(i == index){
+        while (p != null) {
+            if (i == index) {
                 return p.item;
             }
             p = p.next;
@@ -127,15 +127,15 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         return null;
     }
 
-    public T getRecursive(int index){
-        if(isEmpty() || index < 0 || index >= size()) {
+    public T getRecursive(int index) {
+        if (isEmpty() || index < 0 || index >= size()) {
             return null;
         }
-        return getNodeRecursive(head.next, index + 1).item;
+        return getNodeRecursive(head.next, index).item;
     }
 
-    public Node getNodeRecursive(Node current, int index){
-        if(index == 0) {
+    public Node getNodeRecursive(Node current, int index) {
+        if (index == 0) {
             return current;
         } else {
             return getNodeRecursive(current.next, index - 1);
@@ -143,26 +143,26 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
     }
 
     @Override
-    public Iterator<T> iterator(){
+    public Iterator<T> iterator() {
         return new LinkedListDequeIterator();
     }
 
     @Override
     public boolean equals(Object o) {
-        if(this == o){
+        if (this == o) {
             return true;
         }
-        if(!(o instanceof LinkedListDeque)){
+        if (!(o instanceof LinkedListDeque)) {
             return false;
         }
         LinkedListDeque<T> a = (LinkedListDeque<T>) o;
-        if(size() != a.size()){
+        if (size() != a.size()) {
             return false;
         }
         Node current = head.next;
         Node acurrent = a.head.next;
-        while(current != null) {
-            if(!current.item.equals(acurrent.item)){
+        while (current != null) {
+            if (!current.item.equals(acurrent.item)) {
                 return false;
             }
             current = current.next;

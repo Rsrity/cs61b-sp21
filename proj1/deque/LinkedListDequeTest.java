@@ -162,4 +162,11 @@ public class LinkedListDequeTest {
             System.out.print(i + " ");
         }
     }
+
+    @Test
+    public void getRecursiveTest() {
+        LinkedListDeque<Integer> lld = new LinkedListDeque<>();
+        lld.addLast(0);
+        lld.getRecursive(0);
+    }
 }
