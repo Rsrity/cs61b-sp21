@@ -26,9 +26,9 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
     }
 
     private class LinkedListDequeIterator implements Iterator<T> {
-        public Node current;
+        Node current;
 
-        public LinkedListDequeIterator() {
+        LinkedListDequeIterator() {
             current = head.next;
         }
         @Override
@@ -134,7 +134,7 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         return getNodeRecursive(head.next, index).item;
     }
 
-    public Node getNodeRecursive(Node current, int index) {
+    private Node getNodeRecursive(Node current, int index) {
         if (index == 0) {
             return current;
         } else {
@@ -152,21 +152,17 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof LinkedListDeque)) {
+        if (!(o instanceof Deque)) {
             return false;
         }
-        LinkedListDeque<T> a = (LinkedListDeque<T>) o;
+        Deque<T> a = (Deque<T>) o;
         if (size() != a.size()) {
             return false;
         }
-        Node current = head.next;
-        Node acurrent = a.head.next;
-        while (current != null) {
-            if (!current.item.equals(acurrent.item)) {
+        for(int i = 0; i < size(); i++) {
+            if(get(i) != a.get(i)) {
                 return false;
             }
-            current = current.next;
-            acurrent = acurrent.next;
         }
         return true;
     }

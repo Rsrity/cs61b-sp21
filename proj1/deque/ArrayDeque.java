@@ -19,7 +19,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
         private int count;
         private int currentIndex;
 
-        public ArrayDequeIterator() {
+        ArrayDequeIterator() {
             count = 0;
             currentIndex = head;
         }
@@ -132,15 +132,15 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof ArrayDeque)) {
+        if (!(o instanceof Deque)) {
             return false;
         }
-        ArrayDeque<T> a = (ArrayDeque<T>) o;
+        Deque<T> a = (Deque<T>) o;
         if (size() != a.size()) {
             return false;
         }
-        for (int i = 0; i < size(); i++) {
-            if (!get(i).equals(a.get(i))) {
+        for(int i = 0; i < size(); i++) {
+            if(get(i) != a.get(i)) {
                 return false;
             }
         }
