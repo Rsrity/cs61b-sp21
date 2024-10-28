@@ -27,8 +27,9 @@ public class TestArrayDequeEC {
                 if (!(buggyDeque.isEmpty())) {
                     Integer buggyLast = buggyDeque.removeLast();
                     Integer correctLast = correctDeque.removeLast();
-                    assertEquals("\n"+ lastOperation + "\n" + thisOperation + "\n"
-                            + "removeLast()\n", correctLast, buggyLast);
+//                    assertEquals("\n"+ lastOperation + "\n" + thisOperation + "\n"
+//                            + "removeLast()\n", correctLast, buggyLast);
+                    assertEquals("removeLast()\n", correctLast, buggyLast);
                 }
             }
         }
