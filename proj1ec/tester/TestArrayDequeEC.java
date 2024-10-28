@@ -12,19 +12,14 @@ public class TestArrayDequeEC {
         StudentArrayDeque<Integer> buggyDeque = new StudentArrayDeque<>();
         ArrayDequeSolution<Integer> correctDeque = new ArrayDequeSolution<>();
 
-        String lastOperation = "";
-        String thisOperation = "";
-
         for (int i = 0; i < 100; i++) {
             double numberBetweenZeroAndOne = StdRandom.uniform();
 
             if (numberBetweenZeroAndOne > 0.5) {
                 buggyDeque.addLast(i);
                 correctDeque.addLast(i);
-                lastOperation = thisOperation;
-                thisOperation = "addLast(" + i + ")";
             } else {
-                if (!(buggyDeque.isEmpty())) {
+                if (!correctDeque.isEmpty()) {
                     Integer buggyLast = buggyDeque.removeLast();
                     Integer correctLast = correctDeque.removeLast();
 //                    assertEquals("\n"+ lastOperation + "\n" + thisOperation + "\n"
