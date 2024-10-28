@@ -12,7 +12,7 @@ public class TestArrayDequeEC {
         StudentArrayDeque<Integer> buggyDeque = new StudentArrayDeque<>();
         ArrayDequeSolution<Integer> correctDeque = new ArrayDequeSolution<>();
 
-        String operation = "";
+        String Operation = "";
 
         for (int i = 0; i < 100; i++) {
             double numberBetweenZeroAndOne = StdRandom.uniform();
@@ -20,7 +20,7 @@ public class TestArrayDequeEC {
             if (numberBetweenZeroAndOne > 0.5) {
                 buggyDeque.addLast(i);
                 correctDeque.addLast(i);
-                operation = "addLast(" + i + ")";
+                Operation = Operation + "addLast(" + i + ")\n";
             } else {
                 if (!correctDeque.isEmpty()) {
                     Integer buggyLast = buggyDeque.removeLast();
@@ -28,7 +28,8 @@ public class TestArrayDequeEC {
 //                    assertEquals(lastOperation + "\n" + thisOperation + "\n"
 //                            + "removeLast()\n", correctLast, buggyLast);
 //                    assertEquals("removeLast()\n", correctLast, buggyLast);
-                    assertEquals(operation + "removeLast()\n", correctLast, buggyLast);
+                    Operation = Operation + "removeLast()\n";
+                    assertEquals(Operation, correctLast, buggyLast);
 
                 }
             }
