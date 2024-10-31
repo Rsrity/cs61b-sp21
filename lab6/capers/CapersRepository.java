@@ -51,7 +51,7 @@ public class CapersRepository {
             System.out.println(text);
         } else {
             String preText = Utils.readContentsAsString(storyFile);
-            System.out.println(preText);
+            System.out.print(preText);
             System.out.println(text);
             Utils.writeContents(storyFile, preText, text + "\n");
         }
@@ -77,5 +77,6 @@ public class CapersRepository {
     public static void celebrateBirthday(String name) {
         Dog dog = Dog.fromFile(name);
         dog.haveBirthday();
+        dog.saveDog();
     }
 }
