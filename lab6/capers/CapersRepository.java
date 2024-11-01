@@ -32,7 +32,6 @@ public class CapersRepository {
      *    - story -- file containing the current story
      */
     public static void setupPersistence() {
-        // TODO
         CAPERS_FOLDER.mkdir();
         DOG_FOLDER.mkdir();
     }
