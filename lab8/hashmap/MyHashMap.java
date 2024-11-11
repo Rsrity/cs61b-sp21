@@ -148,22 +148,15 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         }
         Node newNode = createNode(key, value);
         int position = Math.floorMod(key.hashCode(), initialSize - 1);
-        int i = 0;
-        for (Collection<Node> bucket : buckets) {
-            if (i == position) {
-                if (!bucket.isEmpty()) {
-                    for (Node node : bucket) {
-                        if (node.key.equals(key)) {
-                            node.value = value;
-                            return;
-                        }
-                    }
-                }
-                bucket.add(newNode);
-                size++;
+        Collection<Node> bucket = buckets[position];
+        for (Node node : bucket) {
+            if (node.key.equals(key)) {
+                node.value = value;
+                return;
             }
-            i++;
         }
+        bucket.add(newNode);
+        size++;
     }
 
     private void resize(int newSize) {
