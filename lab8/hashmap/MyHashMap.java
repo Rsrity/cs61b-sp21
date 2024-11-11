@@ -31,7 +31,6 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
     private int size;
     private int initialSize = 16;
     private double maxLoad = 0.75;
-    private int bucketIndex = 0;
 
     /** Constructors */
     public MyHashMap() {
@@ -193,11 +192,29 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     @Override
     public V remove(K key) {
-        throw new UnsupportedOperationException();
+        int position = Math.floorMod(key.hashCode(), initialSize - 1);
+        Collection<Node> bucket = buckets[position];
+        for (Node node : bucket) {
+            if (node.key.equals(key)) {
+                V ret = node.value;
+                bucket.remove(node);
+                return ret;
+            }
+        }
+        return null;
     }
 
     @Override
     public V remove(K key, V value) {
-        throw new UnsupportedOperationException();
+        int position = Math.floorMod(key.hashCode(), initialSize - 1);
+        Collection<Node> bucket = buckets[position];
+        for (Node node : bucket) {
+            if (node.key.equals(key) && node.value == value) {
+                V ret = node.value;
+                bucket.remove(node);
+                return ret;
+            }
+        }
+        return null;
     }
 }
